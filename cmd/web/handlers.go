@@ -51,5 +51,15 @@ func (app *application) createScratchpad(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	w.Write([]byte("Create a new scratchpad..."))
+	title := "Lorem ipsum"
+	content := "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+	expires := "7"
+
+	id, err := app.scratches.Insert(title, content, expires)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	http.Redirect(w, r, fmt.Sprintf("/scratches?id=%d", id), http.StatusSeeOther)
 }
