@@ -47,5 +47,29 @@ func (m *ScratchModel) Get(id int) (*models.Scratch, error) {
 }
 
 func (m *ScratchModel) Latest() ([]*models.Scratch, error) {
-	return nil, nil
+	stmt := `SELECT id, title, content, created, expires FROM scratches
+    WHERE expires > UTC_TIMESTAMP() ORDER BY created DESC LIMIT 10`
+
+	rows, err := m.DB.Query(stmt)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var snippets []*models.Scratch
+
+	for rows.Next() {
+		s := &models.Scratch{}
+		err = rows.Scan(&s.ID, &s.Title, &s.Content, &s.Created, &s.Expires)
+		if err != nil {
+			return nil, err
+		}
+		snippets = append(snippets, s)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return snippets, nil
 }
