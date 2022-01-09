@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"database/sql"
+	"errors"
 
 	"github.com/azdanov/scratchpad/pkg/models"
 )
@@ -28,7 +29,21 @@ func (m *ScratchModel) Insert(title, content, expires string) (int, error) {
 }
 
 func (m *ScratchModel) Get(id int) (*models.Scratch, error) {
-	return nil, nil
+	stmt := `SELECT id, title, content, created, expires FROM scratches
+    WHERE expires > UTC_TIMESTAMP() AND id = ?`
+
+	s := &models.Scratch{}
+
+	row := m.DB.QueryRow(stmt, id)
+	err := row.Scan(&s.ID, &s.Title, &s.Content, &s.Created, &s.Expires)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, models.ErrNoRecord
+		}
+		return nil, err
+	}
+
+	return s, nil
 }
 
 func (m *ScratchModel) Latest() ([]*models.Scratch, error) {
