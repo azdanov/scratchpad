@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"flag"
+	"github.com/azdanov/scratchpad/pkg/models/mysql"
 	"log"
 	"net/http"
 	"os"
@@ -11,8 +12,9 @@ import (
 )
 
 type application struct {
-	errorLog *log.Logger
-	infoLog  *log.Logger
+	errorLog  *log.Logger
+	infoLog   *log.Logger
+	scratches *mysql.ScratchModel
 }
 
 func main() {
@@ -30,8 +32,9 @@ func main() {
 	defer db.Close()
 
 	app := &application{
-		errorLog: errorLog,
-		infoLog:  infoLog,
+		errorLog:  errorLog,
+		infoLog:   infoLog,
+		scratches: &mysql.ScratchModel{DB: db},
 	}
 
 	srv := &http.Server{
