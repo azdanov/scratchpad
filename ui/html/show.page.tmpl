@@ -1,0 +1,14 @@
+{{template "base" .}}
+
+{{define "title"}}Home{{end}}
+
+{{define "main"}}
+    <div class="card">
+        <span>#{{.Scratch.ID}}</span>
+        <strong>{{.Scratch.Title}}</strong>
+        <hr>
+        <pre>{{.Scratch.Content}}</pre>
+        <time>Created: {{.Scratch.Created}}</time>
+        <time>Expires: {{.Scratch.Expires}}</time>
+    </div>
+{{end}}
