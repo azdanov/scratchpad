@@ -3,6 +3,24 @@
 {{define "title"}}Home{{end}}
 
 {{define "main"}}
-<h2>Latest Scratches</h2>
-<p>There's nothing to see here yet!</p>
+    <h2>Latest Scratches</h2>
+
+    {{if .Scratches}}
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Created</th>
+                <th>ID</th>
+            </tr>
+            {{range .Scratches}}
+                <tr>
+                    <td><a href='/scratches?id={{.ID}}'>{{.Title}}</a></td>
+                    <td>{{.Created}}</td>
+                    <td>#{{.ID}}</td>
+                </tr>
+            {{end}}
+        </table>
+    {{else}}
+        <p>There's nothing to see here... yet!</p>
+    {{end}}
 {{end}}

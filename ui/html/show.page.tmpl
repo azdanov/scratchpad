@@ -3,12 +3,14 @@
 {{define "title"}}Home{{end}}
 
 {{define "main"}}
-    <div class="card">
-        <span>#{{.Scratch.ID}}</span>
-        <strong>{{.Scratch.Title}}</strong>
-        <hr>
-        <pre>{{.Scratch.Content}}</pre>
-        <time>Created: {{.Scratch.Created}}</time>
-        <time>Expires: {{.Scratch.Expires}}</time>
-    </div>
+    {{with .Scratch}}
+        <div class="card">
+            <span>#{{.ID}}</span>
+            <strong>{{.Title}}</strong>
+            <hr>
+            <pre>{{.Content}}</pre>
+            <time>Created: {{.Created}}</time>
+            <time>Expires: {{.Expires}}</time>
+        </div>
+    {{end}}
 {{end}}
