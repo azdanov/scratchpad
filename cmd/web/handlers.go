@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"html/template"
 	"net/http"
 	"strconv"
 
@@ -22,27 +21,9 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := &templateData{Scratches: s}
-
-	files := []string{
-		"./ui/html/home.page.tmpl",
-		"./ui/html/base.layout.tmpl",
-		"./ui/html/footer.partial.tmpl",
-	}
-
-	ts, err := template.ParseFiles(files...)
-	if err != nil {
-		app.errorLog.Println(err.Error())
-		app.serverError(w, err)
-		return
-	}
-
-	err = ts.Execute(w, data)
-	if err != nil {
-		app.errorLog.Println(err.Error())
-		app.serverError(w, err)
-		return
-	}
+	app.render(w, r, "home.page.tmpl", &templateData{
+		Scratches: s,
+	})
 }
 
 func (app *application) showScratchpad(w http.ResponseWriter, r *http.Request) {
@@ -62,24 +43,9 @@ func (app *application) showScratchpad(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := &templateData{Scratch: s}
-
-	files := []string{
-		"./ui/html/show.page.tmpl",
-		"./ui/html/base.layout.tmpl",
-		"./ui/html/footer.partial.tmpl",
-	}
-
-	ts, err := template.ParseFiles(files...)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
-
-	err = ts.Execute(w, data)
-	if err != nil {
-		app.serverError(w, err)
-	}
+	app.render(w, r, "show.page.tmpl", &templateData{
+		Scratch: s,
+	})
 }
 
 func (app *application) createScratchpad(w http.ResponseWriter, r *http.Request) {

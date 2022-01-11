@@ -4,13 +4,16 @@
 
 {{define "main"}}
     {{with .Scratch}}
-        <div class="card">
-            <span>#{{.ID}}</span>
-            <strong>{{.Title}}</strong>
-            <hr>
-            <pre>{{.Content}}</pre>
-            <time>Created: {{.Created}}</time>
-            <time>Expires: {{.Expires}}</time>
-        </div>
+        <article>
+            <header>
+                <span>#{{.ID}}</span>
+                <strong>{{.Title}}</strong>
+            </header>
+            <pre style="background-color: white">{{.Content}}</pre>
+            <footer>
+                <time>Created: {{.Created}}</time>
+                <time>Expires: {{.Expires}}</time>
+            </footer>
+        </article>
     {{end}}
 {{end}}
