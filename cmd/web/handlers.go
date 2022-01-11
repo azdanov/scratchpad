@@ -45,7 +45,9 @@ func (app *application) showScratchpad(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) createScratchpadForm(w http.ResponseWriter, r *http.Request) {
-	app.render(w, r, "create.page.tmpl", nil)
+	app.render(w, r, "create.page.tmpl", &templateData{
+		Form: forms.New(nil),
+	})
 }
 
 func (app *application) createScratchpad(w http.ResponseWriter, r *http.Request) {
