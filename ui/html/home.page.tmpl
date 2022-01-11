@@ -15,14 +15,14 @@
                 </tr>
                 {{range .Scratches}}
                     <tr>
-                        <td><a href='/scratches/{{.ID}}'>{{.Title}}</a></td>
+                        <td><a href="/scratches/{{.ID}}">{{.Title}}</a></td>
                         <td>{{.Created | humanDate}}</td>
                         <td>#{{.ID}}</td>
                     </tr>
                 {{end}}
             </table>
         {{else}}
-            <p>There's nothing to see here... yet!</p>
+            <p>There"s nothing to see here... yet!</p>
         {{end}}
     </main>
 {{end}}

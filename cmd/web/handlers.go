@@ -44,7 +44,7 @@ func (app *application) showScratchpad(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) createScratchpadForm(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Create a new scratch..."))
+	app.render(w, r, "create.page.tmpl", nil)
 }
 
 func (app *application) createScratchpad(w http.ResponseWriter, r *http.Request) {
