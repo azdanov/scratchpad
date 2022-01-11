@@ -1,13 +1,13 @@
 {{template "base" .}}
 
-{{define "title"}}Home{{end}}
+{{define "title"}}Show #{{.Scratch.ID}}{{end}}
 
 {{define "main"}}
     {{with .Scratch}}
         <article>
             <header>
-                <span>#{{.ID}}</span>
                 <strong>{{.Title}}</strong>
+                <span>#{{.ID}}</span>
             </header>
             <pre style="background-color: white">{{.Content}}</pre>
             <footer>

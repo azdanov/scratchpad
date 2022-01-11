@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/azdanov/scratchpad/pkg/models"
 	"html/template"
 	"path/filepath"
 	"time"
+
+	"github.com/azdanov/scratchpad/pkg/models"
 )
 
 type templateData struct {
