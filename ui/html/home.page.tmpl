@@ -15,7 +15,7 @@
                 </tr>
                 {{range .Scratches}}
                     <tr>
-                        <td><a href='/scratches?id={{.ID}}'>{{.Title}}</a></td>
+                        <td><a href='/scratches/{{.ID}}'>{{.Title}}</a></td>
                         <td>{{.Created | humanDate}}</td>
                         <td>#{{.ID}}</td>
                     </tr>

@@ -10,11 +10,6 @@ import (
 )
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		app.notFound(w)
-		return
-	}
-
 	s, err := app.scratches.Latest()
 	if err != nil {
 		app.serverError(w, err)
@@ -27,7 +22,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) showScratchpad(w http.ResponseWriter, r *http.Request) {
-	id, err := strconv.Atoi(r.URL.Query().Get("id"))
+	id, err := strconv.Atoi(r.URL.Query().Get(":id"))
 	if err != nil || id < 1 {
 		app.notFound(w)
 		return
@@ -48,13 +43,11 @@ func (app *application) showScratchpad(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func (app *application) createScratchpad(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		w.Header().Set("Allow", http.MethodPost)
-		app.clientError(w, http.StatusMethodNotAllowed)
-		return
-	}
+func (app *application) createScratchpadForm(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Create a new scratch..."))
+}
 
+func (app *application) createScratchpad(w http.ResponseWriter, r *http.Request) {
 	title := "Lorem ipsum"
 	content := "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
 	expires := "7"
@@ -65,5 +58,5 @@ func (app *application) createScratchpad(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	http.Redirect(w, r, fmt.Sprintf("/scratches?id=%d", id), http.StatusSeeOther)
+	http.Redirect(w, r, fmt.Sprintf("/scratches/%d", id), http.StatusSeeOther)
 }

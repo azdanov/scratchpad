@@ -56,7 +56,7 @@ func (m *ScratchModel) Latest() ([]*models.Scratch, error) {
 	}
 	defer rows.Close()
 
-	var snippets []*models.Scratch
+	var scratches []*models.Scratch
 
 	for rows.Next() {
 		s := &models.Scratch{}
@@ -64,12 +64,12 @@ func (m *ScratchModel) Latest() ([]*models.Scratch, error) {
 		if err != nil {
 			return nil, err
 		}
-		snippets = append(snippets, s)
+		scratches = append(scratches, s)
 	}
 
 	if err := rows.Err(); err != nil {
 		return nil, err
 	}
 
-	return snippets, nil
+	return scratches, nil
 }
