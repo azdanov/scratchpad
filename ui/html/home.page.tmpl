@@ -16,7 +16,7 @@
                 {{range .Scratches}}
                     <tr>
                         <td><a href='/scratches?id={{.ID}}'>{{.Title}}</a></td>
-                        <td>{{.Created}}</td>
+                        <td>{{.Created | humanDate}}</td>
                         <td>#{{.ID}}</td>
                     </tr>
                 {{end}}
