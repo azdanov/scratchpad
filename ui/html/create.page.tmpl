@@ -5,39 +5,41 @@
 {{define "main"}}
     <main>
         <form action="/scratches/create" method="POST">
-            <div>
-                <label for="title">Title:</label>
-                {{with .FormErrors.title}}
-                    <label class="error">{{.}}</label>
-                {{end}}
-                <input type="text" id="title" name="title" value='{{.FormData.Get "title"}}'>
-            </div>
-            <div>
-                <label for="content">Content:</label>
-                {{with .FormErrors.content}}
-                    <label class="error">{{.}}</label>
-                {{end}}
-                <textarea id="content" name="content">{{.FormData.Get "content"}}</textarea>
-            </div>
-            <div>
-                <fieldset>
-                    <legend>Expires:</legend>
-
-                    {{with .FormErrors.expires}}
+            {{with .Form}}
+                <div>
+                    <label for="title">Title:</label>
+                    {{with .Errors.Get "title"}}
                         <label class="error">{{.}}</label>
                     {{end}}
-                    {{$exp := or (.FormData.Get "expires") "365"}}
-                    <input type="radio" id="year" name="expires" value="365" {{if (eq $exp "365")}}checked{{end}}>
-                    <label for="year">One Year</label>
-                    <input type="radio" id="week" name="expires" value="7" {{if (eq $exp "7")}}checked{{end}}>
-                    <label for="week">One Week</label>
-                    <input type="radio" id="day" name="expires" value="1" {{if (eq $exp "1")}}checked{{end}}>
-                    <label for="day">One Day</label>
-                </fieldset>
-            </div>
-            <div>
-                <input type="submit" value="Publish scratch">
-            </div>
+                    <input type="text" id="title" name="title" value='{{.Get "title"}}'>
+                </div>
+                <div>
+                    <label for="content">Content:</label>
+                    {{with .Errors.Get "content"}}
+                        <label class="error">{{.}}</label>
+                    {{end}}
+                    <textarea id="content" name="content">{{.Get "content"}}</textarea>
+                </div>
+                <div>
+                    <fieldset>
+                        <legend>Expires:</legend>
+
+                        {{with .Errors.Get "expires"}}
+                            <label class="error">{{.}}</label>
+                        {{end}}
+                        {{$exp := or (.Get "expires") "365"}}
+                        <input type="radio" id="year" name="expires" value="365" {{if (eq $exp "365")}}checked{{end}}>
+                        <label for="year">One Year</label>
+                        <input type="radio" id="week" name="expires" value="7" {{if (eq $exp "7")}}checked{{end}}>
+                        <label for="week">One Week</label>
+                        <input type="radio" id="day" name="expires" value="1" {{if (eq $exp "1")}}checked{{end}}>
+                        <label for="day">One Day</label>
+                    </fieldset>
+                </div>
+                <div>
+                    <input type="submit" value="Publish scratch">
+                </div>
+            {{end}}
         </form>
     </main>
 {{end}}

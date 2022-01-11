@@ -2,17 +2,17 @@ package main
 
 import (
 	"html/template"
-	"net/url"
 	"path/filepath"
 	"time"
+
+	"github.com/azdanov/scratchpad/pkg/forms"
 
 	"github.com/azdanov/scratchpad/pkg/models"
 )
 
 type templateData struct {
 	CurrentYear int
-	FormData    url.Values
-	FormErrors  map[string]string
+	Form        *forms.Form
 	Scratch     *models.Scratch
 	Scratches   []*models.Scratch
 }
