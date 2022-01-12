@@ -7,6 +7,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
+
+	"github.com/golangcollege/sessions"
 
 	"github.com/azdanov/scratchpad/pkg/models/mysql"
 
@@ -16,6 +19,7 @@ import (
 type application struct {
 	errorLog      *log.Logger
 	infoLog       *log.Logger
+	session       *sessions.Session
 	scratches     *mysql.ScratchModel
 	templateCache map[string]*template.Template
 }
@@ -23,6 +27,7 @@ type application struct {
 func main() {
 	addr := flag.String("addr", ":4000", "HTTP network address")
 	dsn := flag.String("dsn", "root:secret@/scratchpad?parseTime=true", "Database data source name")
+	secret := flag.String("secret", "98e34f795e5129d4c3ef1b80e3c95e3e", "Secret key")
 	flag.Parse()
 
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
@@ -39,9 +44,13 @@ func main() {
 		errorLog.Fatal(err)
 	}
 
+	session := sessions.New([]byte(*secret))
+	session.Lifetime = 12 * time.Hour
+
 	app := &application{
 		errorLog:      errorLog,
 		infoLog:       infoLog,
+		session:       session,
 		scratches:     &mysql.ScratchModel{DB: db},
 		templateCache: templateCache,
 	}
