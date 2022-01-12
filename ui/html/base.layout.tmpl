@@ -16,6 +16,10 @@
             .error + input, .error + textarea {
                 border: 1px solid red;
             }
+
+            .flash {
+                background-color: var(--card-sectionning-background-color);
+            }
         </style>
     </head>
 
@@ -42,6 +46,10 @@
             <li><a href="https://github.com/azdanov/scratchpad">GitHub</a></li>
         </ul>
     </nav>
+
+    {{with .Flash}}
+        <article class='flash'>{{.}}</article>
+    {{end}}
 
     {{template "main" .}}
 

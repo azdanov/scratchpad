@@ -73,5 +73,7 @@ func (app *application) createScratchpad(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
+	app.session.Put(r, "flash", "Scratch successfully created!")
+
 	http.Redirect(w, r, fmt.Sprintf("/scratches/%d", id), http.StatusSeeOther)
 }
