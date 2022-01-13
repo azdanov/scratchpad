@@ -9,6 +9,44 @@
         <link rel="stylesheet" href="/static/css/pico.min.css">
         <link rel="icon" href="/static/img/favicon.svg">
         <style>
+            /* Teal Light scheme (Default) */
+            /* Can be forced with data-theme="light" */
+            [data-theme="light"],
+            :root:not([data-theme="dark"]) {
+                --primary: #00897b;
+                --primary-hover: #00796b;
+                --primary-focus: rgba(0, 137, 123, 0.125);
+                --primary-inverse: #FFF;
+            }
+
+            /* Teal Dark scheme (Auto) */
+            /* Automatically enabled if user has Dark mode enabled */
+            @media only screen and (prefers-color-scheme: dark) {
+                :root:not([data-theme="light"]) {
+                    --primary: #00897b;
+                    --primary-hover: #009688;
+                    --primary-focus: rgba(0, 137, 123, 0.25);
+                    --primary-inverse: #FFF;
+                }
+            }
+
+            /* Teal Dark scheme (Forced) */
+            /* Enabled if forced with data-theme="dark" */
+            [data-theme="dark"] {
+                --primary: #00897b;
+                --primary-hover: #009688;
+                --primary-focus: rgba(0, 137, 123, 0.25);
+                --primary-inverse: #FFF;
+            }
+
+            /* Teal (Common styles) */
+            :root {
+                --form-element-active-border-color: var(--primary);
+                --form-element-focus-color: var(--primary-focus);
+                --switch-color: var(--primary-inverse);
+                --switch-checked-background-color: var(--primary);
+            }
+
             .error {
                 color: red;
             }
@@ -27,9 +65,9 @@
     <nav style="box-shadow: 0 1px 0 rgba(115, 130, 140, 0.2)">
         <ul>
             <li>
-                <a href="/" style="display: inline-flex; align-items: center;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                         class="bi bi-journal-text" viewBox="0 0 16 16">
+                <a href="/" style="display: inline-flex; align-items: center; position: relative" class="{{if (eq .CurrentPath "/")}}contrast{{else}}secondary{{end}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                         style="position: absolute" viewBox="0 0 16 16">
                         <path
                                 d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
                         <path
@@ -37,18 +75,40 @@
                         <path
                                 d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
                     </svg>
-                    <span>&ensp;Scratch Pad</span>
+                    <span style="margin-left: 1.5rem">&ensp;Scratch Pad</span>
+                </a>
+            </li>
+            <li>
+                <a href="/scratches/create"
+                   class="{{if (eq .CurrentPath "/scratches/create")}}contrast{{else}}secondary{{end}}">
+                    Create Scratch
                 </a>
             </li>
         </ul>
         <ul>
-            <li><a href="/scratches/create">Create Scratch</a></li>
-            <li><a href="https://github.com/azdanov/scratchpad">GitHub</a></li>
+            <li>
+                <a href="/user/signup" class="{{if (eq .CurrentPath "/user/signup")}}contrast{{else}}secondary{{end}}">
+                    Signup
+                </a>
+            </li>
+            <li>
+                <a href="/user/login" class="{{if (eq .CurrentPath "/user/login")}}contrast{{else}}secondary{{end}}">
+                    Login
+                </a>
+            </li>
+            <li>
+                <form action="/user/logout" method="POST" id="logoutForm">
+                    <a href="/user/logout" onclick="document.getElementById('logoutForm').submit(); return false;"
+                       class="secondary">
+                        Logout
+                    </a>
+                </form>
+            </li>
         </ul>
     </nav>
 
     {{with .Flash}}
-        <article class='flash'>{{.}}</article>
+        <article class="flash">{{.}}</article>
     {{end}}
 
     {{template "main" .}}

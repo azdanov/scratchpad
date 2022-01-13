@@ -12,6 +12,7 @@ import (
 
 type templateData struct {
 	CurrentYear int
+	CurrentPath string
 	Flash       string
 	Form        *forms.Form
 	Scratch     *models.Scratch
