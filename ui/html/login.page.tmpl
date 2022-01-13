@@ -3,7 +3,6 @@
 {{define "title"}}Login{{end}}
 
 {{define "main"}}
-    <main>
         <form action="/user/login" method="POST" novalidate>
             {{with .Form}}
                 {{with .Errors.Get "generic"}}
@@ -22,5 +21,4 @@
                 </div>
             {{end}}
         </form>
-    </main>
 {{end}}

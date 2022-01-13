@@ -3,26 +3,24 @@
 {{define "title"}}Home{{end}}
 
 {{define "main"}}
-    <main>
-        <h2>Latest Scratches</h2>
+    <h2>Latest Scratches</h2>
 
-        {{if .Scratches}}
-            <table>
+    {{if .Scratches}}
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Created</th>
+                <th>ID</th>
+            </tr>
+            {{range .Scratches}}
                 <tr>
-                    <th>Title</th>
-                    <th>Created</th>
-                    <th>ID</th>
+                    <td><a href="/scratches/{{.ID}}">{{.Title}}</a></td>
+                    <td>{{.Created | humanDate}}</td>
+                    <td>#{{.ID}}</td>
                 </tr>
-                {{range .Scratches}}
-                    <tr>
-                        <td><a href="/scratches/{{.ID}}">{{.Title}}</a></td>
-                        <td>{{.Created | humanDate}}</td>
-                        <td>#{{.ID}}</td>
-                    </tr>
-                {{end}}
-            </table>
-        {{else}}
-            <p>There"s nothing to see here... yet!</p>
-        {{end}}
-    </main>
+            {{end}}
+        </table>
+    {{else}}
+        <p>There"s nothing to see here... yet!</p>
+    {{end}}
 {{end}}
