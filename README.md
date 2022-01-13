@@ -4,6 +4,8 @@ A note-taking application made in [Go](https://go.dev) and [Pico.css](https://pi
 
 ## Setup
 
+Setup localhost TLS certificates by following instruction inside `/tls` directory.
+
 MariaDB is used for database. Either use docker-compose container or a local installation.
 
 Before starting application you need to create the _scratches_ table and _idx_scratches_created_ index 
