@@ -84,30 +84,35 @@
             </li>
         </ul>
         <ul>
-            <li>
-                <a href="/scratches/create"
-                   class="{{if (eq .CurrentPath "/scratches/create")}}contrast{{else}}secondary{{end}}">
-                    Create Scratch
-                </a>
-            </li>
-            <li>
-                <a href="/user/signup" class="{{if (eq .CurrentPath "/user/signup")}}contrast{{else}}secondary{{end}}">
-                    Signup
-                </a>
-            </li>
-            <li>
-                <a href="/user/login" class="{{if (eq .CurrentPath "/user/login")}}contrast{{else}}secondary{{end}}">
-                    Login
-                </a>
-            </li>
-            <li>
-                <form action="/user/logout" method="POST" id="logoutForm">
-                    <a href="/user/logout" onclick="document.getElementById('logoutForm').submit(); return false;"
-                       class="secondary">
-                        Logout
+            {{if .IsAuthenticated}}
+                <li>
+                    <a href="/scratches/create"
+                       class="{{if (eq .CurrentPath "/scratches/create")}}contrast{{else}}secondary{{end}}">
+                        Create Scratch
                     </a>
-                </form>
-            </li>
+                </li>
+                <li>
+                    <form action="/user/logout" method="POST" id="logoutForm">
+                        <a href="/user/logout" onclick="document.getElementById('logoutForm').submit(); return false;"
+                           class="secondary">
+                            Logout
+                        </a>
+                    </form>
+                </li>
+            {{else}}
+                <li>
+                    <a href="/user/signup"
+                       class="{{if (eq .CurrentPath "/user/signup")}}contrast{{else}}secondary{{end}}">
+                        Signup
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/login"
+                       class="{{if (eq .CurrentPath "/user/login")}}contrast{{else}}secondary{{end}}">
+                        Login
+                    </a>
+                </li>
+            {{end}}
         </ul>
     </nav>
 
