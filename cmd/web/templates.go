@@ -11,6 +11,7 @@ import (
 )
 
 type templateData struct {
+	CSRFToken       string
 	CurrentYear     int
 	CurrentPath     string
 	Flash           string

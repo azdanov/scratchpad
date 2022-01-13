@@ -93,6 +93,7 @@
                 </li>
                 <li>
                     <form action="/user/logout" method="POST" id="logoutForm">
+                        <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
                         <a href="/user/logout" onclick="document.getElementById('logoutForm').submit(); return false;"
                            class="secondary">
                             Logout
