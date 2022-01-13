@@ -8,8 +8,7 @@ Setup localhost TLS certificates by following instruction inside `/tls` director
 
 MariaDB is used for database. Either use docker-compose container or a local installation.
 
-Before starting application you need to create the _scratches_ table and _idx_scratches_created_ index 
-at the minimum. Optionally you can insert the examples.
+Before starting application you need to create additional tables and indices.
 
 ```sql
 CREATE DATABASE scratchpad CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -38,4 +37,17 @@ VALUES ('Magnificent Desolation',
         'I believe that space travel will one day become as common as airline travel is today. I’m convinced, however, that the true future of space travel does not lie with government agencies — NASA is still obsessed with the idea that the primary purpose of the space program is science — but real progress will come from private companies competing to provide the ultimate adventure ride, and NASA will receive the trickle-down benefits.\n\n– Buzz Aldrin',
         UTC_TIMESTAMP(),
         DATE_ADD(UTC_TIMESTAMP(), INTERVAL 365 DAY));
+
+CREATE TABLE users
+(
+    id              INTEGER      NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name            VARCHAR(255) NOT NULL,
+    email           VARCHAR(255) NOT NULL,
+    hashed_password CHAR(60)     NOT NULL,
+    created         DATETIME     NOT NULL,
+    active          BOOLEAN      NOT NULL DEFAULT TRUE
+);
+
+ALTER TABLE users
+    ADD CONSTRAINT users_uc_email UNIQUE (email);
 ```

@@ -21,8 +21,9 @@ type application struct {
 	errorLog      *log.Logger
 	infoLog       *log.Logger
 	session       *sessions.Session
-	scratches     *mysql.ScratchModel
 	templateCache map[string]*template.Template
+	scratches     *mysql.ScratchModel
+	users         *mysql.UserModel
 }
 
 func main() {
@@ -53,8 +54,9 @@ func main() {
 		errorLog:      errorLog,
 		infoLog:       infoLog,
 		session:       session,
-		scratches:     &mysql.ScratchModel{DB: db},
 		templateCache: templateCache,
+		scratches:     &mysql.ScratchModel{DB: db},
+		users:         &mysql.UserModel{DB: db},
 	}
 
 	// https://wiki.mozilla.org/Security/Server_Side_TLS
