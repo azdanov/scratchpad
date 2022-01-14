@@ -84,6 +84,12 @@
             </li>
         </ul>
         <ul>
+            <li>
+                <a href="/about"
+                   class="{{if (eq .CurrentPath "/about")}}contrast{{else}}secondary{{end}}">
+                    About
+                </a>
+            </li>
             {{if .IsAuthenticated}}
                 <li>
                     <a href="/scratches/create"
