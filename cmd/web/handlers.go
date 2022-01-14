@@ -150,6 +150,12 @@ func (app *application) loginUser(w http.ResponseWriter, r *http.Request) {
 
 	app.session.Put(r, "authenticatedUserID", id)
 
+	redirect := app.session.PopString(r, "redirect")
+	if redirect != "" {
+		http.Redirect(w, r, redirect, http.StatusSeeOther)
+		return
+	}
+
 	http.Redirect(w, r, "/scratches/create", http.StatusSeeOther)
 }
 
