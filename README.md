@@ -11,6 +11,8 @@ MariaDB is used for database. Either use docker compose container or a local ins
 Before starting application you need to create additional tables and indices.
 When using docker compose a provisioning script will be executed setting up the db.
 
+<details>
+<summary>SQL Init</summary>
 ```sql
 CREATE DATABASE scratchpad CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -54,3 +56,4 @@ CREATE TABLE users
 ALTER TABLE users
     ADD CONSTRAINT users_uc_email UNIQUE (email);
 ```
+</details>
