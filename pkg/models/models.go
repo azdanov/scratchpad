@@ -11,12 +11,24 @@ var (
 	ErrDuplicateEmail     = errors.New("models: duplicate email")
 )
 
+type Scratches interface {
+	Insert(string, string, string) (int, error)
+	Get(int) (*Scratch, error)
+	Latest() ([]*Scratch, error)
+}
+
 type Scratch struct {
 	ID      int
 	Title   string
 	Content string
 	Created time.Time
 	Expires time.Time
+}
+
+type Users interface {
+	Insert(string, string, string) error
+	Authenticate(string, string) (int, error)
+	Get(int) (*User, error)
 }
 
 type User struct {

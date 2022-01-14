@@ -10,6 +10,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/azdanov/scratchpad/pkg/models"
+
 	"github.com/golangcollege/sessions"
 
 	"github.com/azdanov/scratchpad/pkg/models/mysql"
@@ -22,8 +24,8 @@ type application struct {
 	infoLog       *log.Logger
 	session       *sessions.Session
 	templateCache map[string]*template.Template
-	scratches     *mysql.ScratchModel
-	users         *mysql.UserModel
+	scratches     models.Scratches
+	users         models.Users
 }
 
 type contextKey string
