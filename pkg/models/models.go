@@ -29,6 +29,7 @@ type Users interface {
 	Insert(string, string, string) error
 	Authenticate(string, string) (int, error)
 	Get(int) (*User, error)
+	ChangePassword(int, string, string) error
 }
 
 type User struct {

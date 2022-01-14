@@ -15,8 +15,10 @@ type UserModel struct {
 	DB *sql.DB
 }
 
+const cost = 12
+
 func (m *UserModel) Insert(name, email, password string) error {
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 12)
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), cost)
 	if err != nil {
 		return err
 	}
@@ -75,4 +77,30 @@ func (m *UserModel) Get(id int) (*models.User, error) {
 	}
 
 	return u, nil
+}
+
+func (m *UserModel) ChangePassword(id int, currentPassword, newPassword string) error {
+	var currentHashedPassword []byte
+	row := m.DB.QueryRow("SELECT hashed_password FROM users WHERE id = ?", id)
+	err := row.Scan(&currentHashedPassword)
+	if err != nil {
+		return err
+	}
+
+	err = bcrypt.CompareHashAndPassword(currentHashedPassword, []byte(currentPassword))
+	if err != nil {
+		if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
+			return models.ErrInvalidCredentials
+		}
+		return err
+	}
+
+	newHashedPassword, err := bcrypt.GenerateFromPassword([]byte(newPassword), cost)
+	if err != nil {
+		return err
+	}
+
+	stmt := "UPDATE users SET hashed_password = ? WHERE id = ?"
+	_, err = m.DB.Exec(stmt, string(newHashedPassword), id)
+	return err
 }
