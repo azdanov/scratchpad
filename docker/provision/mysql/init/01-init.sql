@@ -1,17 +1,3 @@
-# Scratch Pad
-
-A note-taking application made in [Go](https://go.dev) and [Pico.css](https://picocss.com).
-
-## Setup
-
-Setup localhost TLS certificates by following instruction inside `/tls` directory.
-
-MariaDB is used for database. Either use docker compose container or a local installation.
-
-Before starting application you need to create additional tables and indices.
-When using docker compose a provisioning script will be executed setting up the db.
-
-```sql
 CREATE DATABASE scratchpad CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 CREATE DATABASE test_scratchpad CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -53,4 +39,3 @@ CREATE TABLE users
 
 ALTER TABLE users
     ADD CONSTRAINT users_uc_email UNIQUE (email);
-```
