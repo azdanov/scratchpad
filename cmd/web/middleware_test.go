@@ -10,7 +10,7 @@ import (
 func Test_secureHeaders(t *testing.T) {
 	rr := httptest.NewRecorder()
 
-	r, err := http.NewRequest(http.MethodGet, "/", nil)
+	r, err := http.NewRequest(http.MethodGet, "/", http.NoBody)
 	if err != nil {
 		t.Fatal(err)
 	}
