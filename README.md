@@ -2,14 +2,18 @@
 
 A note-taking application made in [Go](https://go.dev) and [Pico.css](https://picocss.com).
 
+| Home Page                                                                                                      | Show Page                                                                                                      | Create Scratch Form                                                                                            |
+|----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| ![image](https://user-images.githubusercontent.com/6123841/149582325-4d5c9274-84d7-478b-88b7-ba85abee82d4.png) | ![image](https://user-images.githubusercontent.com/6123841/149582567-21b9d4df-230f-4625-9c40-a4caad9b112e.png) | ![image](https://user-images.githubusercontent.com/6123841/149582414-1fabfd28-c3fc-4aa9-9e06-55af611d161d.png) |
+
 ## Setup
 
 Setup localhost TLS certificates by following instruction inside `/tls` directory.
 
 MariaDB is used for database. Either use docker compose container or a local installation.
 
-Before starting application you need to create additional tables and indices.
-When using docker compose a provisioning script will be executed setting up the db.
+Before starting application you need to create additional tables and indices. When using docker compose a provisioning
+script will be executed setting up the db.
 
 <details>
 <summary>SQL Init</summary>
@@ -59,3 +63,27 @@ ALTER TABLE users
 ```
 
 </details>
+
+## Run
+
+Build and run app on port :4000.
+
+```bash
+go build -o ./ ./...
+./web
+```
+
+## Dev
+
+Install [Air](https://github.com/cosmtrek/air) for easy development and live-reloading.
+
+```bash
+air init
+
+# adjust .air.toml config, might need to update:
+# bin = "./tmp/web"
+# cmd = "go build -o ./tmp/ ./..."
+
+air
+```
+
