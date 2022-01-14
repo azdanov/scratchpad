@@ -3,6 +3,7 @@
 {{define "title"}}Create a New Scratch{{end}}
 
 {{define "main"}}
+    <h2>Create Scratch</h2>
     <form action="/scratches/create" method="POST">
         <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
         {{with .Form}}

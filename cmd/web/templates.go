@@ -20,6 +20,7 @@ type templateData struct {
 	Flash           string
 	Form            *forms.Form
 	IsAuthenticated bool
+	User            *models.User
 	Scratch         *models.Scratch
 	Scratches       []*models.Scratch
 }

@@ -98,6 +98,12 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/user/profile"
+                       class="{{if (eq .CurrentPath "/user/profile")}}contrast{{else}}secondary{{end}}">
+                        Profile
+                    </a>
+                </li>
+                <li>
                     <form action="/user/logout" method="POST" id="logoutForm">
                         <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
                         <a href="/user/logout" onclick="document.getElementById('logoutForm').submit(); return false;"
