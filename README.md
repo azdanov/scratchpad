@@ -13,6 +13,7 @@ When using docker compose a provisioning script will be executed setting up the 
 
 <details>
 <summary>SQL Init</summary>
+
 ```sql
 CREATE DATABASE scratchpad CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -56,4 +57,5 @@ CREATE TABLE users
 ALTER TABLE users
     ADD CONSTRAINT users_uc_email UNIQUE (email);
 ```
+
 </details>
