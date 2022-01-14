@@ -20,6 +20,7 @@ import (
 )
 
 type application struct {
+	debug         bool
 	errorLog      *log.Logger
 	infoLog       *log.Logger
 	session       *sessions.Session
@@ -33,6 +34,7 @@ type contextKey string
 const contextKeyIsAuthenticated = contextKey("isAuthenticated")
 
 func main() {
+	debug := flag.Bool("debug", false, "Enable debug mode")
 	addr := flag.String("addr", ":4000", "HTTP network address")
 	dsn := flag.String("dsn", "root:secret@/scratchpad?parseTime=true", "Database data source name")
 	secret := flag.String("secret", "98e34f795e5129d4c3ef1b80e3c95e3e", "Secret key")
@@ -57,6 +59,7 @@ func main() {
 	session.Secure = true
 
 	app := &application{
+		debug:         *debug,
 		errorLog:      errorLog,
 		infoLog:       infoLog,
 		session:       session,
